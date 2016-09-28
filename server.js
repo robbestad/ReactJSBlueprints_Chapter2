@@ -4,7 +4,7 @@ var  babelify = require("babelify");
 var  browserSync = require('browser-sync');
 var  app = express();
 var  port = process.env.PORT || 8080;
-
+var path = require("path");
 browserify.settings({
   transform: [babelify.configure({
   })],
@@ -18,19 +18,9 @@ app.get(
   browserify(__dirname+'/source/app.jsx')
 );
 
-// allowed file types
-app.get(
-  ['*.png','*.jpg','*.css','*.map', '*.json','*.ico'],
-  function (req, res) {
-    res.sendFile(__dirname+"/public/"+req.path);
-  }
-);
+app.use(express.static('./public/'));
 
-// all other requests will be routed to index.html
-app.get('*', function (req, res) {
-  console.log(req.path);
-  res.sendFile(__dirname+"/public/index.html");
-});
+app.use('/*', express.static('./public/index.html'));
 
 app.listen(port,function(){
   browserSync({

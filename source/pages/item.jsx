@@ -71,7 +71,7 @@ const ProductInfo = React.createClass({
             </p>
 
             <p>
-              <Button bsSize="medium"
+              <Button bsSize="large"
                 onClick={CartActions.AddToCart.bind(null, this.props.productData)}>
                 Add to cart!
               </Button>
